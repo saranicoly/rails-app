@@ -1,0 +1,53 @@
+### comandos gerais úteis
+
+rails server or rails s => run the server
+
+### passo a passo para criação da aplicação
+
+# dando início a aplicação
+rails new myalbum -d postgresql
+cd myalbum
+
+#cada usuário terá nome e foto de perfil
+#gerando banco
+rails generate scaffold user name:string
+rails db:create db:migrate
+
+#after that, i tried 'rails s' and got an error:
+# FATAL: role "sara" does not exist 
+# this error was caused because the postgres configuration
+# this is how i solved it:
+gem install pg
+bundle install
+
+- changed the database.yml file to:
+"""
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: myalbum_development
+  username: postgres
+  password: postgres
+  host: localhost
+
+test:
+  <<: *default
+  database: myalbum_test
+
+production:
+  <<: *default
+  database: myalbum_production
+  username: myalbum
+  password: <%= ENV['MYALBUM_DATABASE_PASSWORD'] %>
+"""
+rails db:create
+rails db:migrate
+rails s
+
+# continuing settings...
