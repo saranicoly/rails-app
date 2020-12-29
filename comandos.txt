@@ -1,6 +1,8 @@
 ### comandos gerais úteis
 
 rails server or rails s => run the server
+rails db:migrate => make changes to the database
+bundle install => install gem updates
 
 ### passo a passo para criação da aplicação
 
@@ -50,4 +52,6 @@ rails db:create
 rails db:migrate
 rails s
 
-# continuing settings...
+# creating the necessary tables of Active Storage
+rails active_storage:install
+rails db:migrate
