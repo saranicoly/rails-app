@@ -55,3 +55,19 @@ rails s
 # creating the necessary tables of Active Storage
 rails active_storage:install
 rails db:migrate
+
+#add in model user
+has_one_attached :avatar
+#add in view form
+  <div class="field">
+    <%= form.label :avatar %>
+    <%= form.file_field :avatar %>
+  </div>
+
+#change user_params method in users_controller to
+params.require(:user).permit(:name, :avatar)
+#add in view users/show, to show the image
+<p>
+  <strong>Avatar:</strong>
+  <%= image_tag @user.avatar %>
+</p>
