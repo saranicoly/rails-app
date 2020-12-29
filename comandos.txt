@@ -4,7 +4,10 @@ rails server or rails s => run the server
 rails db:migrate => make changes to the database
 bundle install => install gem updates
 
-### passo a passo para criação da aplicação
+
+### For this part i did follow integrally the tutorial avaliable in
+### https://medium.com/campuscode/primeiros-passos-com-o-active-storage-ad692d722088
+### creating application step by step
 
 # dando início a aplicação
 rails new myalbum -d postgresql
@@ -48,26 +51,3 @@ production:
   username: myalbum
   password: <%= ENV['MYALBUM_DATABASE_PASSWORD'] %>
 """
-rails db:create
-rails db:migrate
-rails s
-
-# creating the necessary tables of Active Storage
-rails active_storage:install
-rails db:migrate
-
-#add in model user
-has_one_attached :avatar
-#add in view form
-  <div class="field">
-    <%= form.label :avatar %>
-    <%= form.file_field :avatar %>
-  </div>
-
-#change user_params method in users_controller to
-params.require(:user).permit(:name, :avatar)
-#add in view users/show, to show the image
-<p>
-  <strong>Avatar:</strong>
-  <%= image_tag @user.avatar %>
-</p>
